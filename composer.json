@@ -1,4 +1,7 @@
 {
+    "name": "yabasi/yabasi",
+    "type": "project",
+    "description": "A powerful and flexible framework for modern PHP applications",
     "require": {
         "yabasi/framework": "^1.0"
     },
