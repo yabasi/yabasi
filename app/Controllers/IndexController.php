@@ -44,6 +44,10 @@ class IndexController extends Controller
             'description' => 'A powerful, flexible, and modern PHP framework designed for rapid application development',
             'features' => $features,
             'year' => date('Y'),
+            'pageTitle' => 'Yabasi Framework - Modern PHP Development Made Simple',
+            'metaDescription' => 'Yabasi is a powerful, flexible PHP framework for building modern web applications. Featuring fast routing, ORM support, and advanced security features.',
+            'ogImage' => 'https://yabasi.com/images/og-image.png',
+            'twitterUsername' => '@abbaskandemir',
         ]);
     }
 }

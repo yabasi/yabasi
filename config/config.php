@@ -4,11 +4,17 @@ return [
     'app' => [
         'name' => 'Yabasi',
         'debug' => true,
-        'version' => '1.0.6'
+        'version' => '1.0.11'
     ],
 
     'asset' => [
         'minify' => true,
+    ],
+
+    'session' => [
+        'driver' => 'file',
+        'lifetime' => 120,
+        'path' => null, // If left as null, the system will automatically choose an appropriate path
     ],
 
     'paths' => [
@@ -26,8 +32,8 @@ return [
     'database' => [
         'driver' => 'mysql',
         'host' => 'localhost',
-        'database' => 'yabasi',
-        'username' => 'root',
+        'database' => '',
+        'username' => '',
         'password' => '',
         'migrations_path' => BASE_PATH . '/app/Migrations/',
     ],
