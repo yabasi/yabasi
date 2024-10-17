@@ -1,0 +1,12 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+
+# IDE files
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.vscode/

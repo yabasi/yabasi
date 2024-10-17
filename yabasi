@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+define('YABASI_START', microtime(true));
+const BASE_PATH = __DIR__;
+
+require BASE_PATH.'/vendor/autoload.php';
+
+use Yabasi\CLI\Console;
+use Yabasi\Config\Config;
+use Yabasi\Container\Container;
+
+try {
+    $container = new Container();
+    $config = new Config();
+
+    $container->singleton(Config::class, $config);
+
+    $console = new Console($container);
+    $console->run($argv);
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . " on line " . $e->getLine() . "\n";
+    echo "Stack trace:\n" . $e->getTraceAsString() . "\n";
+}

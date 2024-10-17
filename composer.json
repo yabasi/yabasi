@@ -1,0 +1,10 @@
+{
+    "require": {
+        "yabasi/framework": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yabasi\\": "app/"
+        }
+    }
+}
