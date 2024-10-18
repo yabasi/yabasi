@@ -4,6 +4,12 @@ Yabasi is a cutting-edge, high-performance PHP framework designed for modern web
 
 Our framework stands out with its innovative approach to solving common web development challenges, offering a unique blend of performance optimization, intuitive APIs, and comprehensive features. Yabasi empowers developers to build sophisticated applications with ease, without compromising on speed or code quality.
 
+<p align="center">
+  <a href="https://packagist.org/packages/yabasi/framework"><img src="https://img.shields.io/packagist/v/yabasi/framework.svg" alt="Latest Stable Version"></a>
+  <a href="https://packagist.org/packages/yabasi/framework"><img src="https://img.shields.io/packagist/dt/yabasi/framework.svg" alt="Total Downloads"></a>
+  <a href="https://github.com/yabasi/framework/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/yabasi/framework.svg" alt="License"></a>
+</p>
+
 ## Features
 
 - **Fast Routing**: Powerful and flexible route management for efficient request handling.
