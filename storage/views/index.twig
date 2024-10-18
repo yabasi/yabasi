@@ -32,9 +32,15 @@
     <div class="px-4 py-6 sm:px-0">
         <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl text-center mb-4">{{ frameworkName }}</h1>
         <p class="text-xl text-gray-500 text-center max-w-3xl mx-auto mb-8">{{ description }}</p>
-        <p class="text-indigo-600 font-semibold text-center mb-12">Version {{ version }}</p>
+        <p class="text-indigo-600 font-semibold text-center mb-6">Version {{ version }}</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="my-6 text-center">
+            <a href="https://github.com/yabasi/framework" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Explore on GitHub
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {% for title, description in features %}
                 <div class="bg-white overflow-hidden shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
@@ -43,12 +49,6 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
-
-        <div class="mt-12 text-center">
-            <a href="https://github.com/yabasi/framework" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Explore on GitHub
-            </a>
         </div>
     </div>
 </main>
