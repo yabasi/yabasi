@@ -405,7 +405,7 @@ vendor/bin/phpunit
 For more detailed information, please refer to our official documentation.
 
 ## Contributing
-We welcome contributions to the Yabasi Framework. Please see our CONTRIBUTING.md file for details on how to contribute.
+We welcome contributions to the Yabasi Framework. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute.
 
 ## License
 The Yabasi Framework is open-sourced software licensed under the MIT license.
