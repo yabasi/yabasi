@@ -60,12 +60,22 @@ Our framework stands out with its innovative approach to solving common web deve
 
 
 ## Installation
-You can add Yabasi Framework to your project using Composer:
+You can create a new Yabasi Framework project using Composer:
 
 ```bash
 composer create-project yabasi/yabasi myproject
 cd myproject
 ```
+
+This will create a new Yabasi project in the `myproject` directory. The project comes with a pre-configured application structure and all necessary dependencies.
+If you want to add Yabasi Framework to an existing project, you can use:
+
+```bash
+composer require yabasi/framework
+```
+
+After installation, you'll need to set up your environment configuration and potentially run some initialization commands. Refer to the Configuration section for more details.
+
 # Usage
 
 ## Routing
