@@ -7,7 +7,7 @@ Our framework stands out with its innovative approach to solving common web deve
 <p align="center">
   <a href="https://packagist.org/packages/yabasi/framework"><img src="https://img.shields.io/packagist/v/yabasi/framework.svg" alt="Latest Stable Version"></a>
   <a href="https://packagist.org/packages/yabasi/framework"><img src="https://img.shields.io/packagist/dt/yabasi/framework.svg" alt="Total Downloads"></a>
-  <a href="https://github.com/yabasi/framework/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/yabasi/framework.svg" alt="License"></a>
+  <a href="https://github.com/yabasi/framework/blob/main/LICENSE"><img src="https://img.shields.io/github/license/yabasi/framework.svg" alt="License"></a>
 </p>
 
 ## Features
