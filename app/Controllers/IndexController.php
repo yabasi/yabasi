@@ -75,7 +75,7 @@ class IndexController extends Controller
             'Database Connection Abstraction' => 'Support for multiple database systems with a unified interface.',
 ];
 
-        $version = $this->config->get('app.version', '1.0.6');
+        $version = $this->config->get('app.version', '1.0.12');
 
         return $this->view('index', [
             'frameworkName' => 'Yabasi Framework',

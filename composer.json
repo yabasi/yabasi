@@ -1,7 +1,7 @@
 {
     "name": "yabasi/yabasi",
     "type": "project",
-    "description": "A powerful and flexible framework for modern PHP applications",
+    "description": "A powerful, flexible, and modern PHP framework designed for rapid application development",
     "license": "MIT",
     "require": {
         "yabasi/framework": "^1.0"
