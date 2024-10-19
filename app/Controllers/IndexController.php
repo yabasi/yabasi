@@ -75,18 +75,16 @@ class IndexController extends Controller
             'Database Connection Abstraction' => 'Support for multiple database systems with a unified interface.',
 ];
 
-        $version = $this->config->get('app.version', '1.0.12');
+        $version = $this->config->get('app.version', '1.0.14');
 
         return $this->view('index', [
-            'frameworkName' => 'Yabasi Framework',
-            'version' => $version,
-            'description' => 'A powerful, flexible, and modern PHP framework designed for rapid application development',
-            'features' => $features,
-            'year' => date('Y'),
-            'pageTitle' => 'Yabasi Framework - Modern PHP Development Made Simple',
-            'metaDescription' => 'Yabasi is a powerful, flexible PHP framework for building modern web applications. Featuring fast routing, ORM support, and advanced security features.',
-            'ogImage' => 'https://yabasi.com/images/og-image.png',
-            'twitterUsername' => '@abbaskandemir',
+            'frameworkName'     => 'Yabasi Framework',
+            'version'           => $version,
+            'description'       => 'A powerful, flexible, and modern PHP framework designed for rapid application development',
+            'features'          => $features,
+            'year'              => date('Y'),
+            'pageTitle'         => 'Yabasi Framework - Modern PHP Development Made Simple',
+            'metaDescription'   => 'Yabasi is a powerful, flexible PHP framework for building modern web applications. Featuring fast routing, ORM support, and advanced security features.',
         ]);
     }
 }

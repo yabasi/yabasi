@@ -19,7 +19,7 @@ return [
     'app' => [
         'name'    => 'Yabasi',
         'debug'   => true,   // ⚠️ Set to false in production environments
-        'version' => '1.0.11'
+        'version' => '1.0.15'
     ],
 
     # === [ ASSET MANAGEMENT ] ============================================== #

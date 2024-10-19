@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Yabasi Framework</title>
+    <meta name="description" content="Oops! The page you are looking for doesn't exist.">
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 flex items-center justify-center h-screen transition-all">
+
+<div class="text-center">
+    <h1 class="text-6xl font-extrabold text-indigo-600 dark:text-purple-400">404</h1>
+    <p class="text-xl font-semibold text-gray-700 dark:text-gray-300 mt-4">
+        Oops! The page you're looking for isn't here.
+    </p>
+    <p class="text-gray-500 dark:text-gray-400 mt-2">
+        It might have been moved or deleted.
+    </p>
+
+    <div class="mt-6">
+        <a href="{{ url('') }}"
+           class="px-6 py-3 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 transition-all">
+            Go to Homepage
+        </a>
+        <a href="mailto:abbas@yabasi.com"
+           class="ml-4 px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-all">
+            Contact Support
+        </a>
+    </div>
+</div>
+
+</body>
+
+</html>

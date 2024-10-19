@@ -1,62 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ pageTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ app.request.uri }}">
-    <meta property="og:title" content="{{ pageTitle }}">
-    <meta property="og:description" content="{{ metaDescription }}">
-    <meta property="og:image" content="{{ ogImage }}">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ app.request.uri }}">
-    <meta property="twitter:title" content="{{ pageTitle }}">
-    <meta property="twitter:description" content="{{ metaDescription }}">
-    <meta property="twitter:image" content="{{ ogImage }}">
-    {% if twitterUsername %}
-        <meta name="twitter:creator" content="{{ twitterUsername }}">
-    {% endif %}
-
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="canonical" href="{{ app.request.uri }}">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <script>
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
 </head>
-<body class="bg-gray-50 font-sans leading-normal tracking-normal">
 
-<main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
-        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl text-center mb-4">{{ frameworkName }}</h1>
-        <p class="text-xl text-gray-500 text-center max-w-3xl mx-auto mb-8">{{ description }}</p>
-        <p class="text-indigo-600 font-semibold text-center mb-6">Version {{ version }}</p>
+<body class="bg-gray-50 dark:bg-gray-900 transition-all">
 
-        <div class="my-6 text-center">
-            <a href="https://github.com/yabasi/framework" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Explore on GitHub
+<!-- Navbar -->
+<nav class="bg-white dark:bg-gray-800 shadow fixed w-full z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <a href="{{ url('') }}" class="flex items-center">
+                <span class="text-xl font-bold text-gray-900 dark:text-gray-100">Yabasi</span>
             </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#features" class="text-gray-700 dark:text-gray-300 hover:underline">Features</a>
+                <a href="#docs" class="text-gray-700 dark:text-gray-300 hover:underline">Documentation</a>
+            </div>
         </div>
+    </div>
+</nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Hero Section -->
+<header class="bg-gradient-to-r from-indigo-600 to-purple-500 text-white py-32 text-center">
+    <h1 class="text-6xl font-extrabold">{{ frameworkName }}</h1>
+    <p class="mt-4 text-lg">{{ description }}</p>
+    <a target="_blank" href="https://github.com/yabasi/yabasi"
+       class="mt-6 inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-md shadow-lg hover:bg-gray-100">
+        Getting Started
+    </a>
+</header>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for title, description in features %}
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2">{{ title }}</h3>
-                        <p class="text-sm text-gray-500">{{ description }}</p>
-                    </div>
+                <div class="bg-white dark:bg-gray-800 p-6 shadow rounded-lg hover:shadow-lg transform hover:scale-105 transition-all">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ title }}</h3>
+                    <p class="text-gray-600 dark:text-gray-400">{{ description }}</p>
                 </div>
             {% endfor %}
         </div>
     </div>
-</main>
+</section>
 
-<footer class="bg-white border-t border-gray-200 mt-12">
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-        <p>&copy; {{ year }} {{ frameworkName }}. All rights reserved.</p>
+<!-- Documentation Section -->
+<section id="docs" class="py-20 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Documentation</h2>
+        <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Access detailed guides, API documentation, and examples to start developing quickly.</p>
+        <div class="flex justify-center space-x-6">
+            <a target="_blank" href="https://github.com/yabasi/yabasi" class="px-8 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Getting Started</a>
+            <a target="_blank" href="https://github.com/yabasi/framework" class="px-8 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-700">GitHub</a>
+            <a href="mailto:abbas@yabasi.com" class="px-8 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700">Email Us</a>
+        </div>
     </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white dark:bg-gray-800 py-6 text-center">
+    <p class="text-gray-500 dark:text-gray-400">&copy; {{ year }} {{ frameworkName }}. All rights reserved.</p>
 </footer>
+
 </body>
+
 </html>
