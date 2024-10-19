@@ -10,3 +10,9 @@ composer.lock
 *.sublime-project
 *.sublime-workspace
 *.vscode/
+
+# Cache and logs
+/storage/cache/*
+/storage/logs/*
+!/storage/cache/.gitkeep
+!/storage/logs/.gitkeep
