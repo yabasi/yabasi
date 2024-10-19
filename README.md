@@ -95,8 +95,9 @@ $router->get('/', function() {
 
 $router->get('/users/{id}', 'UserController@show');
 
-$router->group(['prefix' => 'admin', 'middleware' => 'auth'], function($router) {
-    $router->get('/dashboard', 'AdminController@dashboard');
+$router->group(['middleware' => [\Yabasi\Middleware\SessionMiddleware::class]], function ($router) {
+   $router->get('/account', 'AccountController@index');
+   $router->post('/account/update', 'AccountController@update');
 });
 ```
 
