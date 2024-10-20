@@ -9,6 +9,7 @@ require BASE_PATH.'/vendor/autoload.php';
 use Yabasi\CLI\Console;
 use Yabasi\Config\Config;
 use Yabasi\Container\Container;
+use Yabasi\Exceptions\DatabaseConnectionException;
 
 try {
     $container = new Container();
@@ -18,8 +19,10 @@ try {
 
     $console = new Console($container);
     $console->run($argv);
-} catch (Exception $e) {
+} catch (DatabaseConnectionException $e) {
     echo "Error: " . $e->getMessage() . "\n";
-    echo "File: " . $e->getFile() . " on line " . $e->getLine() . "\n";
-    echo "Stack trace:\n" . $e->getTraceAsString() . "\n";
+    echo "Please check your database configuration in config.php file.\n";
+} catch (Exception $e) {
+    echo "An unexpected error occurred: " . $e->getMessage() . "\n";
+    echo "If this problem persists, please contact support.\n";
 }
