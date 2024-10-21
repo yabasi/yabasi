@@ -19,6 +19,7 @@ return function (Router $router) {
     # render views or handle basic functionality.
 
     $router->get('/', 'IndexController@index');
+    $router->get('/docs', 'DocsController@index');
 
     // $router->get('/about', 'PageController@about');
     // $router->get('/contact', 'PageController@contact');

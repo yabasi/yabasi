@@ -5,6 +5,7 @@ namespace Yabasi\Controllers;
 use Yabasi\Config\Config;
 use Yabasi\Container\Container;
 use Yabasi\Controller\Controller;
+use Yabasi\Database\Database;
 use Yabasi\Http\Request;
 use Yabasi\Http\Response;
 

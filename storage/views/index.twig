@@ -1,86 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ pageTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
-
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
-    <script>
-        document.addEventListener('click', (e) => {
-            if (e.target.matches('a[href^="#"]')) {
-                e.preventDefault();
-                const target = document.querySelector(e.target.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
-<body class="bg-gray-50 dark:bg-gray-900 transition-all">
-
+<body class="bg-gray-50 text-gray-800 antialiased">
 <!-- Navbar -->
-<nav class="bg-white dark:bg-gray-800 shadow fixed w-full z-10">
+<nav class="bg-white shadow-md fixed w-full z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <a href="{{ url('') }}" class="flex items-center">
-                <span class="text-xl font-bold text-gray-900 dark:text-gray-100">Yabasi</span>
+                <span class="text-xl font-bold text-indigo-600">Yabasi</span>
             </a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#features" class="text-gray-700 dark:text-gray-300 hover:underline">Features</a>
-                <a href="#docs" class="text-gray-700 dark:text-gray-300 hover:underline">Documentation</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
+                <a href="#ecosystem" class="text-gray-700 hover:text-indigo-600 transition-colors">Ecosystem</a>
+                <a href="#docs" class="text-gray-700 hover:text-indigo-600 transition-colors">Documentation</a>
+                <a href="https://github.com/yabasi/yabasi" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
             </div>
         </div>
     </div>
 </nav>
 
 <!-- Hero Section -->
-<header class="bg-gradient-to-r from-indigo-600 to-purple-500 text-white py-32 text-center">
-    <h1 class="text-6xl font-extrabold">{{ frameworkName }}</h1>
-    <p class="mt-4 text-lg">{{ description }}</p>
-    <a target="_blank" href="https://github.com/yabasi/yabasi"
-       class="mt-6 inline-block px-8 py-3 bg-white text-indigo-600 font-medium rounded-md shadow-lg hover:bg-gray-100">
-        Getting Started
-    </a>
+<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4">{{ frameworkName }}</h1>
+        <p class="text-xl md:text-2xl mb-8">{{ description }}</p>
+        <div class="flex justify-center space-x-4">
+            <a href="{{ url('/docs#getting-started') }}" class="bg-white text-indigo-600 font-medium px-8 py-3 rounded-md shadow-lg hover:bg-gray-100 transition-colors">
+                Get Started
+            </a>
+            <a href="#docs" class="border-2 border-white text-white font-medium px-8 py-3 rounded-md hover:bg-white hover:text-indigo-600 transition-colors">
+                Documentation
+            </a>
+        </div>
+    </div>
 </header>
 
 <!-- Features Section -->
-<section id="features" class="py-20 bg-gray-50 dark:bg-gray-900">
+<section id="features" class="py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Features</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Powerful Features for Modern Development</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for title, description in features %}
-                <div class="bg-white dark:bg-gray-800 p-6 shadow rounded-lg hover:shadow-lg transform hover:scale-105 transition-all">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ title }}</h3>
-                    <p class="text-gray-600 dark:text-gray-400">{{ description }}</p>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-bolt text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">High Performance</h3>
+                <p class="text-gray-600">Optimized for speed and efficiency, outperforming many popular frameworks.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-shield-alt text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Advanced Security</h3>
+                <p class="text-gray-600">Built-in protection against common web vulnerabilities and attacks.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-code-branch text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Flexible Architecture</h3>
+                <p class="text-gray-600">Modular design allowing for easy customization and extension.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-database text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Powerful ORM</h3>
+                <p class="text-gray-600">Intuitive database interactions with advanced relationship handling.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-tachometer-alt text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Caching & Optimization</h3>
+                <p class="text-gray-600">Multi-level caching system for optimal application performance.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <i class="fas fa-tools text-3xl text-indigo-600 mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Developer-Friendly Tools</h3>
+                <p class="text-gray-600">CLI tools, debugging aids, and comprehensive testing support.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Code Example Section -->
+<section class="bg-gray-100 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Elegant and Powerful API</h2>
+        <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+            <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-            {% endfor %}
+                <span class="ml-4 text-gray-400 text-sm">TaskController.php</span>
+            </div>
+            <div class="flex">
+                <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                    <div>12</div>
+                    <div>13</div>
+                    <div>14</div>
+                    <div>15</div>
+                    <div>16</div>
+                    <div>17</div>
+                    <div>18</div>
+                    <div>19</div>
+                    <div>20</div>
+                    <div>21</div>
+                    <div>22</div>
+                </div>
+                <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #1e1e2f;">
+<code><span style="color: #f76d47;">use</span> Yabasi\Http\Controllers\ApiController;
+<span style="color: #f76d47;">use</span> Yabasi\Http\Request;
+<span style="color: #f76d47;">use</span> Yabasi\Cache\CacheManager;
+
+<span style="color: #82aaff;">class</span> TaskController <span style="color: #f76d47;">extends</span> ApiController {
+    <span style="color: #82aaff;">public function</span> index(Request <span style="color: #c3e88d;">$request</span>, CacheManager <span style="color: #c3e88d;">$cache</span>) {
+        <span style="color: #f76d47;">return</span> <span style="color: #c3e88d;">$cache</span>->remember(<span style="color: #c792ea;">'tasks.all'</span>, <span style="color: #ffcb6b;">3600</span>, <span style="color: #82aaff;">function</span>() {
+            <span style="color: #f76d47;">return</span> <span style="color: #c3e88d;">$this</span>->respondWithData(Task::all());
+        });
+    }
+
+    <span style="color: #82aaff;">public function</span> store(Request <span style="color: #c3e88d;">$request</span>) {
+        <span style="color: #c3e88d;">$validated</span> = <span style="color: #c3e88d;">$request</span>->validate([
+            <span style="color: #c792ea;">'title'</span> => <span style="color: #c792ea;">'required|string|max:255'</span>,
+            <span style="color: #c792ea;">'description'</span> => <span style="color: #c792ea;">'nullable|string'</span>,
+            <span style="color: #c792ea;">'status'</span> => <span style="color: #c792ea;">'required|in:pending,in_progress,completed'</span>
+        ]);
+
+        <span style="color: #c3e88d;">$task</span> = Task::create(<span style="color: #c3e88d;">$validated</span>);
+        <span style="color: #f76d47;">return</span> <span style="color: #c3e88d;">$this</span>->respondWithData(<span style="color: #c3e88d;">$task</span>, <span style="color: #ffcb6b;">201</span>);
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ecosystem Section -->
+<section id="ecosystem" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Comprehensive Ecosystem</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">ORM & Database</h3>
+                <p class="text-gray-600">Advanced ORM with support for multiple databases, migrations, and seeders.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">Authentication & Authorization</h3>
+                <p class="text-gray-600">Robust security system with multi-auth support and role-based permissions.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">API Development</h3>
+                <p class="text-gray-600">Built-in tools for RESTful API development, including versioning and rate limiting.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">Queue & Job Processing</h3>
+                <p class="text-gray-600">Efficient background job processing with multiple queue drivers.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">WebSocket Support</h3>
+                <p class="text-gray-600">Real-time communication capabilities with WebSocket integration.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">Testing & Debugging</h3>
+                <p class="text-gray-600">Comprehensive testing suite and powerful debugging tools for robust development.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Documentation Section -->
-<section id="docs" class="py-20 bg-white dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Documentation</h2>
-        <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Access detailed guides, API documentation, and examples to start developing quickly.</p>
-        <div class="flex justify-center space-x-6">
-            <a target="_blank" href="https://github.com/yabasi/yabasi" class="px-8 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Getting Started</a>
-            <a target="_blank" href="https://github.com/yabasi/framework" class="px-8 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-700">GitHub</a>
-            <a href="mailto:abbas@yabasi.com" class="px-8 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700">Email Us</a>
-        </div>
+<section id="docs" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8">Comprehensive Documentation</h2>
+        <p class="text-xl text-gray-600 mb-12">Everything you need to know about Yabasi, from getting started to advanced topics.</p>
+        <a href="/docs" class="bg-indigo-600 text-white font-medium px-8 py-3 rounded-md hover:bg-indigo-700 transition-colors">
+            Explore the Docs
+        </a>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-white dark:bg-gray-800 py-6 text-center">
-    <p class="text-gray-500 dark:text-gray-400">&copy; {{ year }} {{ frameworkName }}. All rights reserved.</p>
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Yabasi</h3>
+                <p class="text-gray-400">A powerful, flexible, and modern PHP framework designed for rapid application development.</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                    <li><a href="#ecosystem" class="text-gray-400 hover:text-white">Ecosystem</a></li>
+                    <li><a href="#docs" class="text-gray-400 hover:text-white">Documentation</a></li>
+                    <li><a href="https://github.com/yabasi/yabasi" class="text-gray-400 hover:text-white">GitHub</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Stay Connected</h3>
+                <p class="text-gray-400 mb-4">Join our community for updates and support.</p>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/yabasi/yabasi" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://twitter.com/abbaskandemir" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="mailto:abbas@yabasi.com" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-800 text-center">
+            <p class="text-gray-400">&copy; {{ year }} {{ frameworkName }}. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
 
+<script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 </body>
-
 </html>
