@@ -7,7 +7,6 @@
  * It bootstraps the application and handles the initial request.
  *
  * @package Yabasi
- * @version 1.0.11
  */
 
 # === [ BOOTSTRAP ] ======================================================== #

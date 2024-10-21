@@ -2743,7 +2743,6 @@ Cache::flush();</code></pre>
             </p>
         </section>
 
-
         <section id="error-handling-logging" class="mb-12">
             <h1 class="text-4xl font-bold mb-6">Error Handling & Logging</h1>
 
@@ -3639,6 +3638,662 @@ Cache::flush();</code></pre>
                 By following these best practices and utilizing the features provided by Yabasi's CLI tools, you can create powerful, user-friendly command-line interfaces for your application. These tools can significantly improve your development workflow and provide valuable utilities for managing your Yabasi projects.
             </p>
         </section>
+
+        <section id="testing" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Testing</h1>
+
+            <p class="mb-4">
+                Yabasi framework provides a robust testing infrastructure to ensure the reliability and stability of your applications. It uses PHPUnit as the testing framework, allowing you to write unit tests, integration tests, and feature tests with ease.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">Setting Up the Testing Environment</h2>
+            <p class="mb-4">
+                Yabasi comes with a pre-configured <code>phpunit.xml</code> file that defines test suites and environment variables for testing.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">phpunit.xml</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                    </div>
+                    <pre class="language-xml flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #ffc66d;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span style="color: #e8bf6a;">&lt;phpunit</span> <span style="color: #bababa;">bootstrap=</span><span style="color: #a5c261;">"../vendor/autoload.php"</span>
+         <span style="color: #bababa;">colors=</span><span style="color: #a5c261;">"true"</span>
+         <span style="color: #bababa;">verbose=</span><span style="color: #a5c261;">"true"</span>
+         <span style="color: #bababa;">stopOnFailure=</span><span style="color: #a5c261;">"false"</span><span style="color: #e8bf6a;">&gt;</span>
+    <span style="color: #e8bf6a;">&lt;testsuites&gt;</span>
+        <span style="color: #e8bf6a;">&lt;testsuite</span> <span style="color: #bababa;">name=</span><span style="color: #a5c261;">"Unit"</span><span style="color: #e8bf6a;">&gt;</span>
+            <span style="color: #e8bf6a;">&lt;directory</span> <span style="color: #bababa;">suffix=</span><span style="color: #a5c261;">"Test.php"</span><span style="color: #e8bf6a;">&gt;</span>./Unit<span style="color: #e8bf6a;">&lt;/directory&gt;</span>
+        <span style="color: #e8bf6a;">&lt;/testsuite&gt;</span>
+        <span style="color: #e8bf6a;">&lt;testsuite</span> <span style="color: #bababa;">name=</span><span style="color: #a5c261;">"Integration"</span><span style="color: #e8bf6a;">&gt;</span>
+            <span style="color: #e8bf6a;">&lt;directory</span> <span style="color: #bababa;">suffix=</span><span style="color: #a5c261;">"Test.php"</span><span style="color: #e8bf6a;">&gt;</span>./Integration<span style="color: #e8bf6a;">&lt;/directory&gt;</span>
+        <span style="color: #e8bf6a;">&lt;/testsuite&gt;</span>
+    <span style="color: #e8bf6a;">&lt;/testsuites&gt;</span>
+    <span style="color: #e8bf6a;">&lt;php&gt;</span>
+        <span style="color: #e8bf6a;">&lt;env</span> <span style="color: #bababa;">name=</span><span style="color: #a5c261;">"APP_ENV"</span> <span style="color: #bababa;">value=</span><span style="color: #a5c261;">"testing"</span><span style="color: #e8bf6a;">/&gt;</span>
+    <span style="color: #e8bf6a;">&lt;/php&gt;</span>
+<span style="color: #e8bf6a;">&lt;/phpunit&gt;</span></code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Base Test Case</h2>
+            <p class="mb-4">
+                Yabasi provides a base test case class that sets up the testing environment and offers helpful utility methods for your tests.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">YabasiTestCase.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div>22</div>
+                        <div>23</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> Yabasi\Tests;
+
+<span style="color: #cc7832;">use</span> PHPUnit\Framework\TestCase;
+<span style="color: #cc7832;">use</span> Yabasi\Application;
+<span style="color: #cc7832;">use</span> Yabasi\Container\Container;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">YabasiTestCase</span> <span style="color: #cc7832;">extends</span> TestCase
+{
+    <span style="color: #cc7832;">protected</span> <span style="color: #bbb529;">$app</span>;
+    <span style="color: #cc7832;">protected</span> <span style="color: #bbb529;">$container</span>;
+
+    <span style="color: #cc7832;">protected function</span> <span style="color: #ffc66d;">setUp</span>(): <span style="color: #cc7832;">void</span>
+    {
+        parent::setUp();
+        <span style="color: #bbb529;">$this</span>->container = <span style="color: #cc7832;">new</span> Container();
+        <span style="color: #bbb529;">$this</span>->app = <span style="color: #cc7832;">new</span> Application(<span style="color: #bbb529;">$this</span>->container);
+    }
+
+    <span style="color: #cc7832;">protected function</span> <span style="color: #ffc66d;">tearDown</span>(): <span style="color: #cc7832;">void</span>
+    {
+        <span style="color: #bbb529;">$this</span>->app = <span style="color: #cc7832;">null</span>;
+        <span style="color: #bbb529;">$this</span>->container = <span style="color: #cc7832;">null</span>;
+        parent::tearDown();
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Writing Unit Tests</h2>
+            <p class="mb-4">
+                Unit tests are used to test the smallest parts of your application in isolation. Here's an example of a simple unit test:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">ExampleTest.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> Yabasi\Tests\Unit;
+
+<span style="color: #cc7832;">use</span> Yabasi\Application;
+<span style="color: #cc7832;">use</span> Yabasi\Tests\YabasiTestCase;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">ExampleTest</span> <span style="color: #cc7832;">extends</span> YabasiTestCase
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">testExample</span>()
+    {
+        <span style="color: #bbb529;">$this</span>->assertTrue(<span style="color: #cc7832;">true</span>);
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">testApplicationInstance</span>()
+    {
+        <span style="color: #bbb529;">$this</span>->assertInstanceOf(Application::<span style="color: #cc7832;">class</span>, <span style="color: #bbb529;">$this</span>->app);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Integration Tests</h2>
+            <p class="mb-4">
+                Integration tests are used to test how different components of your application work together. Here's an example of a router integration test:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">RouterTest.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div>22</div>
+                        <div>23</div>
+                        <div>24</div>
+                        <div>25</div>
+                        <div>26</div>
+                        <div>27</div>
+                        <div>28</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> Yabasi\Tests\Integration;
+
+<span style="color: #cc7832;">use</span> Yabasi\Http\Request;
+<span style="color: #cc7832;">use</span> Yabasi\Routing\Router;
+<span style="color: #cc7832;">use</span> Yabasi\Tests\YabasiTestCase;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">RouterTest</span> <span style="color: #cc7832;">extends</span> YabasiTestCase
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">testBasicRouting</span>()
+    {
+        <span style="color: #bbb529;">$router</span> = <span style="color: #bbb529;">$this</span>->app->make(Router::<span style="color: #cc7832;">class</span>);
+        <span style="color: #bbb529;">$router</span>->get(<span style="color: #6a8759;">'/test'</span>, <span style="color: #cc7832;">function</span>() {
+            <span style="color: #cc7832;">return</span> <span style="color: #6a8759;">'Hello Test'</span>;
+        });
+
+        <span style="color: #bbb529;">$request</span> = <span style="color: #bbb529;">$this</span>->createRequest(<span style="color: #6a8759;">'/test'</span>, <span style="color: #6a8759;">'GET'</span>);
+        <span style="color: #bbb529;">$response</span> = <span style="color: #bbb529;">$router</span>->dispatch(<span style="color: #bbb529;">$request</span>);
+
+        <span style="color: #bbb529;">$this</span>->assertEquals(<span style="color: #6a8759;">'Hello Test'</span>, <span style="color: #bbb529;">$response</span>->getContent());
+    }
+
+    <span style="color: #cc7832;">private function</span> <span style="color: #ffc66d;">createRequest</span>(<span style="color: #bbb529;">$uri</span>, <span style="color: #bbb529;">$method</span>, <span style="color: #bbb529;">$parameters</span> = [], <span style="color: #bbb529;">$cookies</span> = [], <span style="color: #bbb529;">$files</span> = [], <span style="color: #bbb529;">$server</span> = [])
+    {
+        <span style="color: #808080;">// Implementation of createRequest method</span>
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Running Tests</h2>
+            <p class="mb-4">
+                To run your tests, use the PHPUnit command from your project root:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg p-4 mb-4 shadow-md relative">
+                <button onclick="copyCode(this)" class="absolute top-2 right-2 text-gray-400 hover:text-white focus:outline-none">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <code class="font-mono text-white">
+                    <span class="text-green-400">./vendor/bin/phpunit</span>
+                </code>
+            </div>
+
+            <p class="mb-4">
+                You can also run specific test suites or individual test files:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg p-4 mb-4 shadow-md relative">
+                <button onclick="copyCode(this)" class="absolute top-2 right-2 text-gray-400 hover:text-white focus:outline-none">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <code class="font-mono text-white">
+                    <span class="text-green-400">./vendor/bin/phpunit</span>
+                    <span class="text-yellow-400">--testsuite Unit</span>
+                </code>
+            </div>
+
+            <div class="bg-gray-900 rounded-lg p-4 mb-4 shadow-md relative">
+                <button onclick="copyCode(this)" class="absolute top-2 right-2 text-gray-400 hover:text-white focus:outline-none">
+                    <i class="fas fa-copy"></i>
+                </button>
+
+                <code class="font-mono text-white">
+                    <span class="text-green-400">./vendor/bin/phpunit</span>
+                    <span class="text-yellow-400">tests/Unit/ExampleTest.php</span>
+                </code>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Best Practices</h2>
+            <ul class="list-disc list-inside mb-4">
+                <li>Write tests for all new features and bug fixes</li>
+                <li>Aim for high test coverage, but focus on critical paths</li>
+                <li>Keep tests fast and independent of each other</li>
+                <li>Use descriptive test method names</li>
+                <li>Follow the Arrange-Act-Assert (AAA) pattern in your tests</li>
+                <li>Use data providers for testing multiple scenarios</li>
+                <li>Mock external dependencies to isolate the code being tested</li>
+            </ul>
+
+            <p class="mt-4">
+                By following these testing practices and utilizing Yabasi's testing infrastructure, you can ensure the reliability and maintainability of your applications.
+            </p>
+        </section>
+
+        <section id="events-listeners" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Events & Listeners</h1>
+
+            <p class="mb-4">
+                Yabasi framework provides a robust event system that allows you to easily implement and manage application events. This system helps in decoupling various aspects of your application, making it more maintainable and extensible.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">Event Dispatcher</h2>
+            <p class="mb-4">
+                The core of Yabasi's event system is the <code>EventDispatcher</code> class. It manages event registration and dispatching.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">EventDispatcher.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> Yabasi\Events;
+
+<span style="color: #cc7832;">use</span> Closure;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">EventDispatcher</span>
+{
+    <span style="color: #cc7832;">protected</span> <span style="color: #cc7832;">array</span> <span style="color: #9876aa;">$listeners</span> = [];
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">listen</span>(<span style="color: #cc7832;">string</span> <span style="color: #9876aa;">$eventName</span>, <span style="color: #9876aa;">$listener</span>): <span style="color: #cc7832;">void</span>
+    {
+        <span style="color: #bbb529;">$this</span>->listeners[<span style="color: #9876aa;">$eventName</span>][] = <span style="color: #9876aa;">$listener</span>;
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">dispatch</span>(Event <span style="color: #9876aa;">$event</span>): <span style="color: #cc7832;">void</span>
+    {
+        <span style="color: #9876aa;">$eventName</span> = <span style="color: #9876aa;">$event</span>->getName();
+        <span style="color: #cc7832;">if</span> (isset(<span style="color: #bbb529;">$this</span>->listeners[<span style="color: #9876aa;">$eventName</span>])) {
+            <span style="color: #cc7832;">foreach</span> (<span style="color: #bbb529;">$this</span>->listeners[<span style="color: #9876aa;">$eventName</span>] <span style="color: #cc7832;">as</span> <span style="color: #9876aa;">$listener</span>) {
+                <span style="color: #cc7832;">if</span> (<span style="color: #9876aa;">$listener</span> <span style="color: #cc7832;">instanceof</span> Closure) {
+                    <span style="color: #9876aa;">$listener</span>(<span style="color: #9876aa;">$event</span>);
+                } <span style="color: #cc7832;">elseif</span> (<span style="color: #cc7832;">is_array</span>(<span style="color: #9876aa;">$listener</span>) <span style="color: #cc7832;">&&</span> <span style="color: #cc7832;">count</span>(<span style="color: #9876aa;">$listener</span>) == <span style="color: #6897bb;">2</span>) {
+                    [<span style="color: #9876aa;">$class</span>, <span style="color: #9876aa;">$method</span>] = <span style="color: #9876aa;">$listener</span>;
+                    <span style="color: #cc7832;">if</span> (<span style="color: #cc7832;">is_string</span>(<span style="color: #9876aa;">$class</span>)) {
+                        <span style="color: #9876aa;">$class</span> = <span style="color: #cc7832;">new</span> <span style="color: #9876aa;">$class</span>();
+                    }
+                    <span style="color: #9876aa;">$class</span>-><span style="color: #9876aa;">$method</span>(<span style="color: #9876aa;">$event</span>);
+                }
+            }
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Creating Events</h2>
+            <p class="mb-4">
+                Events in Yabasi are simple classes that extend the base <code>Event</code> class. They typically contain data relevant to the event.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">UserRegisteredEvent.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Events;
+
+<span style="color: #cc7832;">use</span> Yabasi\Events\Event;
+<span style="color: #cc7832;">use</span> App\Models\User;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">UserRegisteredEvent</span> <span style="color: #cc7832;">extends</span> Event
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">__construct</span>(<span style="color: #cc7832;">public</span> User <span style="color: #9876aa;">$user</span>)
+    {
+        parent::__construct(<span style="color: #6a8759;">'user.registered'</span>);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Creating Listeners</h2>
+            <p class="mb-4">
+                Listeners are classes or closures that respond to specific events. They perform actions based on the event data.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">SendWelcomeEmail.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Listeners;
+
+<span style="color: #cc7832;">use</span> App\Events\UserRegisteredEvent;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">SendWelcomeEmail</span>
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">handle</span>(UserRegisteredEvent <span style="color: #9876aa;">$event</span>)
+    {
+        <span style="color: #808080;">// Send welcome email to $event->user</span>
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Registering Events and Listeners</h2>
+            <p class="mb-4">
+                You can register events and listeners in your service providers or anywhere you have access to the EventDispatcher.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">EventServiceProvider.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Providers;
+
+<span style="color: #cc7832;">use</span> Yabasi\Events\EventDispatcher;
+<span style="color: #cc7832;">use</span> Yabasi\ServiceProvider\ServiceProvider;
+<span style="color: #cc7832;">use</span> App\Events\UserRegisteredEvent;
+<span style="color: #cc7832;">use</span> App\Listeners\SendWelcomeEmail;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">EventServiceProvider</span> <span style="color: #cc7832;">extends</span> ServiceProvider
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">boot</span>(): <span style="color: #cc7832;">void</span>
+    {
+        <span style="color: #bbb529;">$this</span>->container->get(EventDispatcher::<span style="color: #cc7832;">class</span>)->listen(UserRegisteredEvent::<span style="color: #cc7832;">class</span>, [SendWelcomeEmail::<span style="color: #cc7832;">class</span>, <span style="color: #6a8759;">'handle'</span>]);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Dispatching Events</h2>
+            <p class="mb-4">
+                To dispatch an event, you can use the EventDispatcher's dispatch method.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">UserController.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">use</span> App\Events\UserRegisteredEvent;
+<span style="color: #cc7832;">use</span> Yabasi\Events\EventDispatcher;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">UserController</span>
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">register</span>(Request <span style="color: #9876aa;">$request</span>, EventDispatcher <span style="color: #9876aa;">$eventDispatcher</span>)
+    {
+        <span style="color: #808080;">// User registration logic</span>
+        <span style="color: #9876aa;">$user</span> = User::create(<span style="color: #9876aa;">$request</span>->all());
+
+        <span style="color: #808080;">// Dispatch the event</span>
+        <span style="color: #9876aa;">$eventDispatcher</span>->dispatch(<span style="color: #cc7832;">new</span> UserRegisteredEvent(<span style="color: #9876aa;">$user</span>));
+
+        <span style="color: #cc7832;">return</span> response()->json([<span style="color: #6a8759;">'message'</span> => <span style="color: #6a8759;">'User registered successfully'</span>]);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Event Subscribers</h2>
+            <p class="mb-4">
+                Event subscribers are classes that can listen to multiple events. They provide a more organized way to handle related events.
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">UserEventSubscriber.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Listeners;
+
+<span style="color: #cc7832;">use</span> Yabasi\Events\EventDispatcher;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">UserEventSubscriber</span>
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">subscribe</span>(EventDispatcher <span style="color: #9876aa;">$events</span>): <span style="color: #cc7832;">void</span>
+    {
+        <span style="color: #9876aa;">$events</span>->listen(
+            <span style="color: #6a8759;">'user.registered'</span>,
+            [<span style="color: #bbb529;">$this</span>, <span style="color: #6a8759;">'handleUserRegistered'</span>]
+        );
+
+        <span style="color: #9876aa;">$events</span>->listen(
+            <span style="color: #6a8759;">'user.login'</span>,
+            [<span style="color: #bbb529;">$this</span>, <span style="color: #6a8759;">'handleUserLogin'</span>]
+        );
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">handleUserRegistered</span>(<span style="color: #9876aa;">$event</span>) { <span style="color: #808080;">/* ... */</span> }
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">handleUserLogin</span>(<span style="color: #9876aa;">$event</span>) { <span style="color: #808080;">/* ... */</span> }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Best Practices</h2>
+            <ul class="list-disc list-inside mb-4">
+                <li>Keep events and listeners small and focused on a single responsibility.</li>
+                <li>Use event names that clearly describe what happened (e.g., 'user.registered', 'order.shipped').</li>
+                <li>Consider using event subscribers for closely related events.</li>
+                <li>Avoid performing time-consuming tasks directly in listeners. Instead, dispatch jobs to be processed in the background.</li>
+                <li>Use type-hinting in your listener methods to ensure you're working with the correct event type.</li>
+            </ul>
+
+            <p class="mt-4">
+                By leveraging Yabasi's event system, you can create more modular and maintainable applications. Events allow you to decouple various parts of your application, making it easier to add new functionality without modifying existing code.
+            </p>
+        </section>
+
     </div>
 </main>
 
