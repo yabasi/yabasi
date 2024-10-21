@@ -74,7 +74,74 @@ class IndexController extends Controller
             'Dependency Graph' => 'Visualization tools for application\'s dependency graph.',
             'Robust Testing Suite' => 'Comprehensive testing utilities for unit, integration, and feature testing.',
             'Database Connection Abstraction' => 'Support for multiple database systems with a unified interface.',
-];
+        ];
+
+        $features = [
+            [
+                'icon' => 'fa-bolt',
+                'title' => 'High Performance',
+                'description' => 'Optimized for speed and efficiency, outperforming many popular frameworks.'
+            ],
+            [
+                'icon' => 'fa-shield-alt',
+                'title' => 'Advanced Security',
+                'description' => 'Built-in protection against common web vulnerabilities and attacks.'
+            ],
+            [
+                'icon' => 'fa-code-branch',
+                'title' => 'Flexible Architecture',
+                'description' => 'Modular design allowing for easy customization and extension.'
+            ],
+            [
+                'icon' => 'fa-database',
+                'title' => 'Powerful ORM',
+                'description' => 'Intuitive database interactions with advanced relationship handling.'
+            ],
+            [
+                'icon' => 'fa-tachometer-alt',
+                'title' => 'Caching & Optimization',
+                'description' => 'Multi-level caching system for optimal application performance.'
+            ],
+            [
+                'icon' => 'fa-tools',
+                'title' => 'Developer-Friendly Tools',
+                'description' => 'CLI tools, debugging aids, and comprehensive testing support.'
+            ]
+        ];
+
+        $ecosystem = [
+            [
+                'icon' => 'fa-database',
+                'title' => 'ORM & Database',
+                'description' => 'Advanced ORM with support for multiple databases, migrations, and seeders.'
+            ],
+            [
+                'icon' => 'fa-lock',
+                'title' => 'Authentication & Authorization',
+                'description' => 'Robust security system with multi-auth support and role-based permissions.'
+            ],
+            [
+                'icon' => 'fa-cloud',
+                'title' => 'API Development',
+                'description' => 'Built-in tools for RESTful API development, including versioning and rate limiting.'
+            ],
+            [
+                'icon' => 'fa-tasks',
+                'title' => 'Queue & Job Processing',
+                'description' => 'Efficient background job processing with multiple queue drivers.'
+            ],
+            [
+                'icon' => 'fa-plug',
+                'title' => 'WebSocket Support',
+                'description' => 'Real-time communication capabilities with WebSocket integration.'
+            ],
+            [
+                'icon' => 'fa-vial',
+                'title' => 'Testing & Debugging',
+                'description' => 'Comprehensive testing suite and powerful debugging tools for robust development.'
+            ]
+        ];
+
 
         $version = $this->config->get('app.version', '1.0.14');
 
@@ -83,6 +150,7 @@ class IndexController extends Controller
             'version'           => $version,
             'description'       => 'A powerful, flexible, and modern PHP framework designed for rapid application development',
             'features'          => $features,
+            'ecosystem'         => $ecosystem,
             'year'              => date('Y'),
             'pageTitle'         => 'Yabasi Framework - Modern PHP Development Made Simple',
             'metaDescription'   => 'Yabasi is a powerful, flexible PHP framework for building modern web applications. Featuring fast routing, ORM support, and advanced security features.',
