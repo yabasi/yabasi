@@ -6,6 +6,23 @@
     <title>Yabasi Framework Documentation: Comprehensive Guide for Modern PHP Development</title>
     <meta name="description" content="Explore the powerful features of Yabasi, a cutting-edge PHP framework. Learn about routing, ORM, caching, security, and more.">
 
+    <meta name="author" content="Yabasi Framework">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url('/docs') }}">
+
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:description" content="{{ pageDescription }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ url('/docs') }}">
+    <meta property="og:image" content="{{ url('img/logo.png') }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ pageTitle }}">
+    <meta name="twitter:description" content="{{ pageDescription }}">
+    <meta name="twitter:image" content="{{ url('img/logo.png') }}">
+
+    <link rel="icon" href="{{ url('img/favicon.ico') }}" type="image/x-icon">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
@@ -13,12 +30,11 @@
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased" x-data="{ sidebarOpen: false }">
 
-<!-- Navbar -->
 <nav class="bg-white shadow-md fixed w-full z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <a href="{{ url('') }}" class="flex items-center">
-                <span class="text-xl font-bold text-indigo-600">Yabasi Docs</span>
+                <img src="{{ url('img/logo.png') }}" width="120" alt="Yabasi" />
             </a>
             <div class="hidden md:flex space-x-4">
                 <a href="{{ url('') }}" class="text-gray-700 hover:text-indigo-600 transition-colors">Home</a>
@@ -33,7 +49,6 @@
     </div>
 </nav>
 
-<!-- Sidebar -->
 <aside class="bg-white w-64 h-screen fixed left-0 top-0 overflow-y-auto transition-transform duration-200 ease-in-out z-20 transform md:translate-x-0"
        :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}">
     <div class="p-4">
@@ -73,7 +88,6 @@
     </div>
 </aside>
 
-<!-- Main Content -->
 <main class="md:ml-64 pt-28 pb-16 px-4">
     <div class="max-w-3xl mx-auto">
         <section id="introduction" class="mb-12">
@@ -4294,13 +4308,847 @@ Cache::flush();</code></pre>
             </p>
         </section>
 
+        <section id="queues-jobs" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Queues & Jobs</h1>
+
+            <p class="mb-4">
+                Yabasi provides a robust queue system for handling time-consuming tasks asynchronously. The queue system supports multiple drivers (with Redis as the default), job retries, batch processing, and event handling.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">Creating Jobs</h2>
+            <p class="mb-4">To create a job, extend the base Job class:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">ProcessVideoJob.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Jobs;
+
+<span style="color: #cc7832;">use</span> Yabasi\Queue\Job;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">ProcessVideoJob</span> <span style="color: #cc7832;">extends</span> Job
+{
+    <span style="color: #cc7832;">protected</span> <span style="color: #ffc66d;">$maxAttempts</span> = 3;
+    <span style="color: #cc7832;">protected</span> <span style="color: #ffc66d;">$delay</span> = 60;
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">handle</span>()
+    {
+        <span style="color: #808080;">// Process video logic here</span>
+        <span style="color: #cc7832;">$this</span>->setProgress(50);
+        <span style="color: #808080;">// More processing...</span>
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Dispatching Jobs</h2>
+            <p class="mb-4">You can dispatch jobs to the queue in several ways:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">use</span> App\Jobs\ProcessVideoJob;
+
+<span style="color: #808080;">// Dispatch immediately</span>
+app()->get(<span style="color: #6a8759;">'queue'</span>)->push(<span style="color: #cc7832;">new</span> ProcessVideoJob($data));
+
+<span style="color: #808080;">// Dispatch with delay</span>
+app()->get(<span style="color: #6a8759;">'queue'</span>)->later(60, <span style="color: #cc7832;">new</span> ProcessVideoJob($data));</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Job Configuration</h2>
+            <p class="mb-4">Jobs can be configured with several options:</p>
+            <ul class="list-disc list-inside mb-4">
+                <li><code class="bg-gray-200 px-2 py-1 rounded">$maxAttempts</code>: Maximum number of retry attempts</li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">$delay</code>: Delay between retry attempts in seconds</li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">$progress</code>: Track job progress</li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-3">Running the Queue Worker</h2>
+            <p class="mb-4">To process jobs, you need to run the queue worker:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-md p-4 mb-4 relative">
+                <button onclick="copyCode(this)" class="absolute top-2 right-2 text-gray-400 hover:text-white">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <code class="font-mono text-white">
+                    <span class="text-blue-400">php</span>
+                    <span class="text-yellow-400">yabasi</span>
+                    <span class="text-green-400">queue:work</span>
+                </code>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Handling Failed Jobs</h2>
+            <p class="mb-4">You can implement custom failure handling in your jobs:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">failed</span>(Exception $exception)
+{
+    <span style="color: #808080;">// Log the failure</span>
+    <span style="color: #cc7832;">$this</span>->logger->error(<span style="color: #6a8759;">"Job failed: "</span> . $exception->getMessage());
+
+    <span style="color: #808080;">// Notify or perform cleanup</span>
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Monitoring Progress</h2>
+            <p class="mb-4">Jobs can report their progress during execution:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">handle</span>()
+{
+    <span style="color: #cc7832;">$this</span>->setProgress(25);
+    <span style="color: #808080;">// Process first stage...</span>
+
+    <span style="color: #cc7832;">$this</span>->setProgress(50);
+    <span style="color: #808080;">// Process second stage...</span>
+
+    <span style="color: #cc7832;">$this</span>->setProgress(100);
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Queue Events</h2>
+            <p class="mb-4">The queue system dispatches various events that you can listen to:</p>
+            <ul class="list-disc list-inside mb-4">
+                <li>Job started</li>
+                <li>Job processed</li>
+                <li>Job failed</li>
+                <li>Job retrying</li>
+            </ul>
+
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+                <h3 class="font-bold">Note</h3>
+                <p>Make sure Redis is installed and properly configured in your <code>config/config.php</code> file before using the queue system.</p>
+            </div>
+        </section>
+
+        <section id="api-development" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">API Development</h1>
+
+            <p class="mb-4">
+                Yabasi provides a robust set of tools for building RESTful APIs, including versioning, rate limiting, CORS support, and standardized response formatting. The framework makes it easy to create secure and scalable APIs while following REST best practices.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">API Routes</h2>
+            <p class="mb-4">Define API routes using the ApiRouter with automatic prefix and versioning:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">routes/api.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">use</span> Yabasi\Routing\ApiRouter;
+
+<span style="color: #bbb529;">$apiRouter</span> = <span style="color: #cc7832;">new</span> ApiRouter(<span style="color: #bbb529;">$router</span>);
+
+<span style="color: #bbb529;">$apiRouter</span>->setVersion(<span style="color: #6a8759;">'v1'</span>)->group([], <span style="color: #cc7832;">function</span>(<span style="color: #bbb529;">$router</span>) {
+    <span style="color: #bbb529;">$router</span>->resource(<span style="color: #6a8759;">'users'</span>, <span style="color: #6a8759;">'UserApiController'</span>);
+    <span style="color: #bbb529;">$router</span>->get(<span style="color: #6a8759;">'posts'</span>, <span style="color: #6a8759;">'PostApiController@index'</span>);
+    <span style="color: #bbb529;">$router</span>->post(<span style="color: #6a8759;">'posts'</span>, <span style="color: #6a8759;">'PostApiController@store'</span>);
+});</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">API Controllers</h2>
+            <p class="mb-4">Extend the ApiController base class to get standardized response methods:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">UserApiController.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\Controllers;
+
+<span style="color: #cc7832;">use</span> Yabasi\Http\Controllers\ApiController;
+<span style="color: #cc7832;">use</span> Yabasi\Http\Request;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">UserApiController</span> <span style="color: #cc7832;">extends</span> ApiController
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">index</span>()
+    {
+        <span style="color: #bbb529;">$users</span> = User::all();
+        <span style="color: #cc7832;">return</span> <span style="color: #bbb529;">$this</span>->respondWithData(<span style="color: #bbb529;">$users</span>);
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">store</span>(Request <span style="color: #bbb529;">$request</span>)
+    {
+        <span style="color: #808080;">// Validation and creation logic</span>
+        <span style="color: #cc7832;">return</span> <span style="color: #bbb529;">$this</span>->respondWithSuccess(<span style="color: #6a8759;">'User created successfully'</span>, 201);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Rate Limiting</h2>
+            <p class="mb-4">Protect your API endpoints with built-in rate limiting:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #bbb529;">$apiRouter</span>->group([
+    <span style="color: #6a8759;">'middleware'</span> => [
+        RateLimitMiddleware::class
+    ]
+], <span style="color: #cc7832;">function</span>(<span style="color: #bbb529;">$router</span>) {
+    <span style="color: #808080;">// Your rate-limited routes here</span>
+});</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">API Versioning</h2>
+            <p class="mb-4">API versioning is handled automatically through the URL or Accept header:</p>
+            <ul class="list-disc list-inside mb-4">
+                <li>URL-based: <code class="bg-gray-200 px-2 py-1 rounded">/api/v1/users</code></li>
+                <li>Header-based: <code class="bg-gray-200 px-2 py-1 rounded">Accept-Version: v1</code></li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-3">CORS Configuration</h2>
+            <p class="mb-4">Configure CORS for your API in the config/config.php file:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #6a8759;">'cors'</span> => [
+    <span style="color: #6a8759;">'allowed_origins'</span>   => [<span style="color: #6a8759;">'*'</span>],
+    <span style="color: #6a8759;">'allowed_methods'</span>   => [<span style="color: #6a8759;">'*'</span>],
+    <span style="color: #6a8759;">'allowed_headers'</span>   => [<span style="color: #6a8759;">'*'</span>],
+    <span style="color: #6a8759;">'allow_credentials'</span> => <span style="color: #cc7832;">false</span>,
+    <span style="color: #6a8759;">'max_age'</span>          => 0,
+],</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Standardized API Responses</h2>
+            <p class="mb-4">ApiController provides methods for consistent response formatting:</p>
+
+            <ul class="list-disc list-inside mb-4">
+                <li><code class="bg-gray-200 px-2 py-1 rounded">respondWithData($data, $statusCode = 200)</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">respondWithError($message, $statusCode)</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">respondWithSuccess($message, $statusCode = 200)</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">respondWithValidationError($errors)</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">respondWithPaginatedData($data, $page, $perPage, $total)</code></li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-3">Response Examples</h2>
+            <p class="mb-4">Example of standardized JSON responses:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                    </div>
+                    <pre class="language-json flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code>{
+    <span style="color: #6a8759;">"data"</span>: {
+        <span style="color: #6a8759;">"id"</span>: 1,
+        <span style="color: #6a8759;">"name"</span>: <span style="color: #6a8759;">"John Doe"</span>,
+        <span style="color: #6a8759;">"email"</span>: <span style="color: #6a8759;">"john@example.com"</span>
+    },
+    <span style="color: #6a8759;">"meta"</span>: {
+        <span style="color: #6a8759;">"version"</span>: <span style="color: #6a8759;">"v1"</span>
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+                <h3 class="font-bold">Best Practices</h3>
+                <ul class="list-disc list-inside">
+                    <li>Always version your APIs</li>
+                    <li>Implement rate limiting for public endpoints</li>
+                    <li>Use appropriate HTTP status codes</li>
+                    <li>Include proper error messages in responses</li>
+                    <li>Document your API endpoints</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="websockets" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">WebSockets</h1>
+
+            <p class="mb-4">
+                Yabasi provides real-time communication capabilities through WebSockets using the Ratchet WebSocket server. This enables you to build real-time features like chat applications, live notifications, and real-time dashboards.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">Creating a WebSocket Server</h2>
+            <p class="mb-4">Create a WebSocket server by extending the BaseWebSocketServer class:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">NotificationServer.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">namespace</span> App\WebSocket;
+
+<span style="color: #cc7832;">use</span> Ratchet\ConnectionInterface;
+<span style="color: #cc7832;">use</span> Yabasi\WebSocket\BaseWebSocketServer;
+
+<span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">NotificationServer</span> <span style="color: #cc7832;">extends</span> BaseWebSocketServer
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">onMessage</span>(ConnectionInterface <span style="color: #bbb529;">$from</span>, <span style="color: #bbb529;">$msg</span>)
+    {
+        <span style="color: #bbb529;">$data</span> = json_decode(<span style="color: #bbb529;">$msg</span>, true);
+
+        <span style="color: #808080;">// Broadcast message to all connected clients</span>
+        <span style="color: #cc7832;">foreach</span> (<span style="color: #bbb529;">$this</span>->clients <span style="color: #cc7832;">as</span> <span style="color: #bbb529;">$client</span>) {
+            <span style="color: #bbb529;">$client</span>->send(json_encode([
+                <span style="color: #6a8759;">'type'</span> => <span style="color: #6a8759;">'notification'</span>,
+                <span style="color: #6a8759;">'data'</span> => <span style="color: #bbb529;">$data</span>
+            ]));
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Running the WebSocket Server</h2>
+            <p class="mb-4">Run your WebSocket server using the command line:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-md p-4 mb-4 relative">
+                <button onclick="copyCode(this)" class="absolute top-2 right-2 text-gray-400 hover:text-white">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <code class="font-mono text-white">
+                    <span class="text-blue-400">php</span>
+                    <span class="text-yellow-400">yabasi</span>
+                    <span class="text-green-400">websocket:serve</span>
+                </code>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Client-Side Connection</h2>
+            <p class="mb-4">Connect to your WebSocket server from the client side:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">script.js</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                    </div>
+                    <pre class="language-javascript flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">const</span> <span style="color: #bbb529;">socket</span> = <span style="color: #cc7832;">new</span> WebSocket(<span style="color: #6a8759;">'ws://localhost:8080'</span>);
+
+socket.onopen = <span style="color: #cc7832;">function</span>() {
+    console.log(<span style="color: #6a8759;">'Connected to WebSocket server'</span>);
+};
+
+socket.onmessage = <span style="color: #cc7832;">function</span>(<span style="color: #bbb529;">event</span>) {
+    <span style="color: #cc7832;">const</span> <span style="color: #bbb529;">data</span> = JSON.parse(<span style="color: #bbb529;">event</span>.data);
+
+    <span style="color: #cc7832;">if</span> (<span style="color: #bbb529;">data</span>.type === <span style="color: #6a8759;">'notification'</span>) {
+        console.log(<span style="color: #6a8759;">'New notification:'</span>, <span style="color: #bbb529;">data</span>.data);
+    }
+};</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Handling Events</h2>
+            <p class="mb-4">The BaseWebSocketServer provides several events you can handle:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">class</span> <span style="color: #ffc66d;">GameServer</span> <span style="color: #cc7832;">extends</span> BaseWebSocketServer
+{
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">onOpen</span>(ConnectionInterface <span style="color: #bbb529;">$conn</span>)
+    {
+        <span style="color: #808080;">// New connection established</span>
+        <span style="color: #cc7832;">parent</span>::onOpen(<span style="color: #bbb529;">$conn</span>);
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">onClose</span>(ConnectionInterface <span style="color: #bbb529;">$conn</span>)
+    {
+        <span style="color: #808080;">// Connection closed</span>
+        <span style="color: #cc7832;">parent</span>::onClose(<span style="color: #bbb529;">$conn</span>);
+    }
+
+    <span style="color: #cc7832;">public function</span> <span style="color: #ffc66d;">onError</span>(ConnectionInterface <span style="color: #bbb529;">$conn</span>, \Exception <span style="color: #bbb529;">$e</span>)
+    {
+        <span style="color: #808080;">// Handle error</span>
+        <span style="color: #cc7832;">parent</span>::onError(<span style="color: #bbb529;">$conn</span>, <span style="color: #bbb529;">$e</span>);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Broadcasting Messages</h2>
+            <p class="mb-4">Send messages to specific clients or broadcast to all connected clients:</p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true" style="min-width: 2.5rem;">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #808080;">// Broadcast to all clients except sender</span>
+<span style="color: #cc7832;">foreach</span> (<span style="color: #bbb529;">$this</span>->clients <span style="color: #cc7832;">as</span> <span style="color: #bbb529;">$client</span>) {
+    <span style="color: #cc7832;">if</span> (<span style="color: #bbb529;">$from</span> !== <span style="color: #bbb529;">$client</span>) {
+        <span style="color: #bbb529;">$client</span>->send(<span style="color: #bbb529;">$msg</span>);
+    }
+}
+
+<span style="color: #808080;">// Send to specific client</span>
+<span style="color: #bbb529;">$targetClient</span>->send(json_encode([
+    <span style="color: #6a8759;">'type'</span> => <span style="color: #6a8759;">'private'</span>,
+    <span style="color: #6a8759;">'message'</span> => <span style="color: #6a8759;">'Private message'</span>
+]));</code></pre>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+                <h3 class="font-bold">Note</h3>
+                <ul class="list-disc list-inside">
+                    <li>WebSocket server runs on port 8080 by default</li>
+                    <li>Make sure your firewall allows WebSocket connections</li>
+                    <li>Consider using a process manager like Supervisor in production</li>
+                    <li>Use secure WebSocket (wss://) in production environments</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="localization" class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Localization</h1>
+
+            <p class="mb-4">
+                Yabasi provides a powerful and flexible localization system for creating multilingual applications. The framework uses JSON-based language files and offers an intuitive API for managing translations.
+            </p>
+
+            <h2 class="text-2xl font-semibold mb-3">Configuration</h2>
+            <p class="mb-4">
+                First, set your application's default and fallback locales in your configuration file:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-gray-400 text-sm">config/config.php</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">return</span> [
+    <span style="color: #6a8759;">'app'</span> => [
+        <span style="color: #6a8759;">'locale'</span> => <span style="color: #6a8759;">'en'</span>,
+        <span style="color: #6a8759;">'fallback_locale'</span> => <span style="color: #6a8759;">'en'</span>,
+    ],
+];</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Language Files</h2>
+            <p class="mb-4">
+                Create JSON language files in the <code class="bg-gray-200 px-1 rounded">storage/lang</code> directory. Each language should have its own file:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <span class="ml-4 text-gray-400 text-sm">storage/lang/en.json</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                    </div>
+                    <pre class="language-json flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code>{
+    <span style="color: #6a8759;">"welcome"</span>: <span style="color: #6a8759;">"Welcome to our application"</span>,
+    <span style="color: #6a8759;">"auth.failed"</span>: <span style="color: #6a8759;">"These credentials do not match our records"</span>,
+    <span style="color: #6a8759;">"users.greeting"</span>: <span style="color: #6a8759;">"Hello, :name!"</span>,
+    <span style="color: #6a8759;">"items.count"</span>: <span style="color: #6a8759;">"You have :count items"</span>
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Basic Usage</h2>
+            <p class="mb-4">
+                You can use the translation helper function <code class="bg-gray-200 px-1 rounded">__()</code> or the Translator class directly:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <span class="ml-4 text-gray-400 text-sm">Example Usage</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #cc7832;">// Using helper function</span>
+<span style="color: #bbb529;">echo</span> __(<span style="color: #6a8759;">'welcome'</span>);
+
+<span style="color: #cc7832;">// Using with parameters</span>
+<span style="color: #bbb529;">echo</span> __(<span style="color: #6a8759;">'users.greeting'</span>, [<span style="color: #6a8759;">'name'</span> => <span style="color: #6a8759;">'John'</span>]);
+
+<span style="color: #cc7832;">// Using Translator class</span>
+<span style="color: #bbb529;">$translator</span> = <span style="color: #bbb529;">$container</span>->get(Translator::<span style="color: #cc7832;">class</span>);
+<span style="color: #bbb529;">echo</span> <span style="color: #bbb529;">$translator</span>->get(<span style="color: #6a8759;">'welcome'</span>);</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Using in Twig Templates</h2>
+            <p class="mb-4">
+                The translation function is also available in Twig templates:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <span class="ml-4 text-gray-400 text-sm">example.twig</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                    </div>
+                    <pre class="language-twig flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #e8bf6a">&lt;h1&gt;</span>{{ "{{ __('welcome') }}" }}<span style="color: #e8bf6a">&lt;/h1&gt;</span>
+
+<span style="color: #e8bf6a">&lt;p&gt;</span>{{ "{{ __('users.greeting', {'name': user.name}) }}" }}<span style="color: #e8bf6a">&lt;/p&gt;</span></code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Switching Locales</h2>
+            <p class="mb-4">
+                You can change the application's locale at runtime:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                    </div>
+                    <pre class="language-php flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code><span style="color: #bbb529;">$translator</span> = <span style="color: #bbb529;">$container</span>->get(Translator::<span style="color: #cc7832;">class</span>);
+
+<span style="color: #cc7832;">// Switch to Spanish</span>
+<span style="color: #bbb529;">$translator</span>->setLocale(<span style="color: #6a8759;">'es'</span>);</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Pluralization</h2>
+            <p class="mb-4">
+                Handle pluralization in your translations using the count parameter:
+            </p>
+
+            <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden mb-4">
+                <div class="flex items-center bg-gray-800 px-4 py-2 border-b border-gray-700">
+                    <span class="ml-4 text-gray-400 text-sm">storage/lang/en.json</span>
+                </div>
+                <div class="flex">
+                    <div class="py-4 px-2 text-right bg-gray-800 text-gray-500 select-none" aria-hidden="true">
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                    </div>
+                    <pre class="language-json flex-grow p-4 text-gray-300 overflow-x-auto" style="background-color: #2b2b2b;">
+<code>{
+    <span style="color: #6a8759;">"items.zero"</span>: <span style="color: #6a8759;">"No items found"</span>,
+    <span style="color: #6a8759;">"items.one"</span>: <span style="color: #6a8759;">"One item found"</span>,
+    <span style="color: #6a8759;">"items.many"</span>: <span style="color: #6a8759;">":count items found"</span>
+}</code></pre>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-3">Best Practices</h2>
+            <ul class="list-disc list-inside mb-4">
+                <li>Use dot notation to organize translations hierarchically</li>
+                <li>Always provide a fallback locale for missing translations</li>
+                <li>Keep translation keys lowercase and use dots for namespacing</li>
+                <li>Use meaningful key names that describe the content</li>
+                <li>Group related translations together</li>
+            </ul>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-yellow-700">
+                            Remember to create language files for all supported locales before deploying your application. Missing translations will fall back to the default locale.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 </main>
 
-<!-- Footer -->
-<footer class="bg-white shadow-md py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-gray-600">&copy; {{ year }} Yabasi Framework. All rights reserved.</p>
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Yabasi</h3>
+                <p class="text-gray-400">A powerful, flexible, and modern PHP framework designed for rapid application development.</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ url('/#features') }}" class="text-gray-400 hover:text-white">Features</a></li>
+                    <li><a href="{{ url('#ecosystem') }}" class="text-gray-400 hover:text-white">Ecosystem</a></li>
+                    <li><a href="{{ url('#docs') }}" class="text-gray-400 hover:text-white">Documentation</a></li>
+                    <li><a href="https://github.com/yabasi/yabasi" class="text-gray-400 hover:text-white">GitHub</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Community</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a target="_blank" href="https://x.com/abbaskandemir" class="text-gray-400 hover:text-white">Twitter</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white">Discord</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                <p class="text-gray-400 mb-4">Stay up to date with the latest Yabasi news and updates.</p>
+                <form action="#" method="POST" class="flex">
+                    <input type="email" placeholder="Your email" class="flex-grow px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition-colors">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-800 text-center">
+            <p class="text-gray-400">&copy; {{ year }} {{ frameworkName }}. All rights reserved.</p>
+        </div>
     </div>
 </footer>
 

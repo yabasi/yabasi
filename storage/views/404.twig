@@ -5,9 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | Yabasi Framework</title>
-    <meta name="description" content="Oops! The page you are looking for doesn't exist.">
+    <meta name="description" content="The page you are looking for does not exist. Please check the URL or return to the homepage.">
 
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="{{ url('/404') }}">
+
+    <meta property="og:title" content="404 - Page Not Found | Yabasi Framework">
+    <meta property="og:description" content="The page you are looking for does not exist. Please check the URL or return to the homepage.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/404') }}">
+    <meta property="og:image" content="{{ url('img/logo.png') }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="404 - Page Not Found | Yabasi Framework">
+    <meta name="twitter:description" content="The page you are looking for does not exist. Please check the URL or return to the homepage.">
+    <meta name="twitter:image" content="{{ url('img/logo.png') }}">
+
+    <link rel="icon" href="{{ url('img/favicon.ico') }}" type="image/x-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 flex items-center justify-center h-screen transition-all">

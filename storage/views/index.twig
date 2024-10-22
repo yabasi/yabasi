@@ -6,13 +6,24 @@
     <title>{{ pageTitle }}</title>
     <meta name="description" content="{{ metaDescription }}">
     <meta name="keywords" content="PHP framework, web development, high performance, security, flexibility">
+
+    <meta name="author" content="Yabasi Framework">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url('/') }}">
+
     <meta property="og:title" content="{{ pageTitle }}">
-    <meta property="og:description" content="{{ metaDescription }}">
+    <meta property="og:description" content="{{ pageDescription }}">
+    <meta property="og:type" content="article">
     <meta property="og:url" content="{{ url('/') }}">
-    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ url('img/logo.png') }}">
+
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
+    <meta name="twitter:title" content="{{ pageTitle }}">
+    <meta name="twitter:description" content="{{ pageDescription }}">
+    <meta name="twitter:image" content="{{ url('img/logo.png') }}">
+
+    <link rel="icon" href="{{ url('img/favicon.ico') }}" type="image/x-icon">
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -24,7 +35,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <a href="{{ url('') }}" class="flex items-center">
-                <span class="ml-2 text-xl font-bold text-indigo-600">Yabasi</span>
+                <img src="{{ url('img/logo.png') }}" width="120" alt="Yabasi" />
             </a>
             <div class="hidden md:flex space-x-8">
                 <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
@@ -226,7 +237,7 @@
                 <ul class="space-y-2">
                     <li><a href="#" class="text-gray-400 hover:text-white">Forum</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white">Twitter</a></li>
+                    <li><a target="_blank" href="https://x.com/abbaskandemir" class="text-gray-400 hover:text-white">Twitter</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white">Discord</a></li>
                 </ul>
             </div>
