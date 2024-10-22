@@ -20,6 +20,7 @@ return function (Router $router) {
 
     $router->get('/', 'IndexController@index');
     $router->get('/docs', 'DocsController@index');
+    $router->get('/blog', 'BlogController@index');
 
     // $router->get('/about', 'PageController@about');
     // $router->get('/contact', 'PageController@contact');
